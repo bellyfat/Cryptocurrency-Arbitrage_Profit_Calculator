@@ -1,0 +1,34 @@
+﻿  Profit.cpp
+c:\users\runox\documents\runxuan\undergrad\extra-curricular\research\srg\arbitrage_profit_calculation\profit_calculator\ptap_profit_calculator\profit.cpp(96): warning C4305: 'initializing': truncation from 'int' to 'float'
+c:\users\runox\documents\runxuan\undergrad\extra-curricular\research\srg\arbitrage_profit_calculation\profit_calculator\ptap_profit_calculator\profit.cpp(97): warning C4305: 'initializing': truncation from 'int' to 'float'
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\utility(172): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+  c:\users\runox\documents\runxuan\undergrad\extra-curricular\research\srg\arbitrage_profit_calculation\profit_calculator\ptap_profit_calculator\profit.cpp(99): note: see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+  c:\users\runox\documents\runxuan\undergrad\extra-curricular\research\srg\arbitrage_profit_calculation\profit_calculator\ptap_profit_calculator\profit.cpp(99): note: see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\utility(173): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+  PTAP_Profit_Calculator.vcxproj -> C:\Users\runox\Documents\Runxuan\Undergrad\Extra-Curricular\Research\SRG\Arbitrage_Profit_Calculation\Profit_Calculator\x64\Debug\PTAP_Profit_Calculator.exe
