@@ -11,13 +11,13 @@
 class Timestamp {
 public:
 	//Constructor
-	Timestamp(float a) 
-		: time(a) {}
+	Timestamp(bool a) 
+		: net(a) {}
 	//each vector represents <price, quantity/volume> pairs for either the bid or ask of the exchanges 
 	std::deque<std::pair <float, float>> pair_1; // USD to BTC, we only need to look at the ask price
 	std::deque<std::pair <float, float>> pair_2; // ETH to BTC, we only need to look at the bid price
 	std::deque<std::pair <float, float>> pair_3; // ETH to USD, we only need to look at the bid price
-	float time;
+	bool net;
 
 
 	//*************************THIS FUNCTION NEEDS TO BE UPDATED BASED ON JAINXIN'S FUNCTION FOR CREATING THE ORDERBOOK********************************
@@ -54,11 +54,11 @@ public:
 			secondq = pair_2.front().second;
 			firstq = pair_1.front().first * secondq;
 		}
-		thirdq = secondq*pair_2.front().first;
+		thirdq = secondq * pair_2.front().first;
 		//repeat for the third exchange
 		if (pair_3.front().second < thirdq) {
 			thirdq = pair_3.front().second;
-			secondq = thirdq/pair_2.front().first;
+			secondq = thirdq / pair_2.front().first;
 			firstq = pair_1.front().first * secondq;
 		}
 		//Amount of profit gained from this iteration
@@ -74,7 +74,10 @@ public:
 
 		//return the amount of profit gained
 		if (revenue > firstq) invested += firstq;
-		return revenue - firstq;
+		if (net) {
+			return revenue - firstq;
+		}
+		else return (revenue - firstq) / firstq;
 	}
 };
 
@@ -96,13 +99,25 @@ float profit_calc(Timestamp &time) {
 
 // ########################Edits need to be made so that it automatically reads in the starting timestamp and the ending timestamp######################################
 // *********************************************************************************************************************************************************************
-int main() {
+int main(int argc, char** argv) {
+	std::string input = argv[1];
+	bool net;
+	if (input == "net") {
+		net = true;//marginal profit selected
+	}
+	else if (input == "mar") {
+		net = false;//marginal profit selected
+	}
+	else {
+		std::cout << "Please enter 'net' or 'mar'" << std::endl;
+		exit(1);
+	}
 	std::ifstream ask_one("ETH_USD_asks.txt");
-	std::ifstream bid_two("ETH_BTC_asks.txt");
+	std::ifstream bid_two("ETH_BTC_bids.txt");
 	std::ifstream bid_three("BTC_USD_bids.txt");
 	int maxtime = 1547339238;
 	for (int mintime = 1547321049; mintime <= maxtime; ++mintime) {
-		Timestamp current(mintime);
+		Timestamp current(net);
 		std::pair <float, float> a(1, 1);
 		std::deque< std::pair <float, float> > x;
 		for (int i = 0; i < 50; ++i) {
