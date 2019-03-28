@@ -50,6 +50,7 @@ with open(sys.argv[1]) as csv_file:
                     x[0] = 1
                 else:
                     x[0] = 2
+                print(row[6])
                 x[1] = row[6]#price
                 x[2] = row[8]#remaining volume
                 x[3] = row[5]#delta volume
@@ -59,7 +60,7 @@ with open(sys.argv[1]) as csv_file:
                     x[6] = 1
                 elif row[7] == "place":
                     x[6] = 2
-                elif row[7] == "place":
+                elif row[7] == "trade":
                     x[6] = 3
                 x[7] = row[1]#eventID
                 if previnit:
@@ -68,7 +69,7 @@ with open(sys.argv[1]) as csv_file:
                 else:
                     update = numpy.append(update, [x], axis=0)
         line_count += 1
-numpy.save("out", update) #change the name of the output file depending on the pair
-numpy.save("out", init)
+numpy.save(sys.argv[3], update) #change the name of the output file depending on the pair
+numpy.save(sys.argv[2], init)
 print(init)
 print(update)
