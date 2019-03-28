@@ -54,7 +54,31 @@ class Papa_PTAP():
     		calc_ptap(start_pair, im_pair, last_pair)
 
     def calc_ptap(self, start_pair, im_pair, last_pair):
-    	# TODO
+    	firstq = start_pair['price'] * start_pair['volume']
+	secondq = start_pair['volume']
+
+	if (im_pair['price'] < secondq) :
+		secondq = im_pair['volume']
+		firstq = start_pair['price'] * secondq
+
+	thirdq = secondq / im_pair['price']
+
+	if (last_pair['volume'] < thirdq) :
+		thirdq = last_pair['volume']
+		secondq = thirdq * im_pair['price']
+		firstq = start_pair['price'] * secondq
+
+	revenue = thirdq * last_pair['price']
+
+	start_pair['volume'] -= secondq
+	im_pair['volume'] -= secondq
+	last_pair['volume'] -= thirdq
+
+	if (revenue > firstq):
+		return revenue - firstq
+	else:
+		return 0
+
     	pass 
 
     def _get_pair(self,file):
