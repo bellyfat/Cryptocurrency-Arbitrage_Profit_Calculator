@@ -33,9 +33,10 @@ with open(sys.argv[1]) as csv_file:
     line_count = 0
     previnit = True
     for row in csv_reader:
+        print(line_count)
         y = numpy.array([0.00, 0.00, 0.00])
         x = numpy.array([0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00])
-        if line_count !=0:
+        if line_count !=0 and row[9] != "trade":
             if row[7] == "initial":
                 if row[0] == "asks":
                     y[0] = 1
@@ -50,7 +51,6 @@ with open(sys.argv[1]) as csv_file:
                     x[0] = 1
                 else:
                     x[0] = 2
-                print(row[6])
                 x[1] = row[6]#price
                 x[2] = row[8]#remaining volume
                 x[3] = row[5]#delta volume
@@ -69,7 +69,9 @@ with open(sys.argv[1]) as csv_file:
                 else:
                     update = numpy.append(update, [x], axis=0)
         line_count += 1
-numpy.save(sys.argv[3], update) #change the name of the output file depending on the pair
+        if line_count % 100000:
+            numpy.save(sys.argv[3], update)
+            numpy.save(sys.argv[2], init)
+
+numpy.save(sys.argv[3], update)
 numpy.save(sys.argv[2], init)
-print(init)
-print(update)
